@@ -166,7 +166,11 @@ export default class i18nTransform extends Transform {
 
       // generates plurals according to i18next rules: key, key_plural, key_0, key_1, etc.
       for (const entry of this.entries) {
-        if (entry.count !== undefined) {
+        if (entry.suffixes && entry.suffixes.length) {
+          entry.suffixes.forEach((suffix) => {
+            transformEntry(entry, suffix)
+          })
+        } else if (entry.count !== undefined) {
           numbers.forEach((_, i) => {
             transformEntry(entry, getPluralSuffix(numbers, i))
           })
