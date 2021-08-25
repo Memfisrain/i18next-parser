@@ -166,7 +166,11 @@ i18nTransform = /*#__PURE__*/function (_Transform) {(0, _inherits2["default"])(i
 
           // generates plurals according to i18next rules: key, key_plural, key_0, key_1, etc.
           var _iterator3 = _createForOfIteratorHelper(_this2.entries),_step3;try {var _loop2 = function _loop2() {var entry = _step3.value;
-              if (entry.count !== undefined) {
+              if (entry.suffixes && entry.suffixes.length) {
+                entry.suffixes.forEach(function (suffix) {
+                  transformEntry(entry, suffix);
+                });
+              } else if (entry.count !== undefined) {
                 numbers.forEach(function (_, i) {
                   transformEntry(entry, getPluralSuffix(numbers, i));
                 });
